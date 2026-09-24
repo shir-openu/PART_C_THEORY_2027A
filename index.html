@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--
+  Corrected 3 August 2026 from the reviewer notes in "Presentation1".
+  Previous version preserved as: index_OLD.html
+  Full path: D:\Dropbox\1PIPELINES1\ODE\ODE_MAP_CHARTS\PART_C\PART_C_THEORY\index_OLD.html
+  Changes: הורדת המימד -> הקטנת הממד x1; hyphen in אי-הומוגנית x1; hyphen in אי-תלות x1; המרה -> המרת x1
+-->
+
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>כרך ג - מערכת מד"ר לינארית - משפטי קיום ויחידות</title>
+  <style>
+    :root{
+      --edge:#6b7280;
+      --lvl1:#a78bfa; --lvl2:#60a5fa; --lvl3:#34d399; --lvl4:#22d3ee;
+      --txt:#e5e7eb;
+      --k: 1.45;
+      --w0:260px;
+      --pad0:12px; --gap0:60px; --v-gap0:50px; --radius0:16px; --fs0:14px;
+      --shadow:0 6px 18px rgba(0,0,0,.25);
+      --w: var(--w0);
+      --pad: calc(var(--pad0) * var(--k));
+      --gap: var(--gap0);
+      --v-gap: calc(var(--v-gap0) * var(--k));
+      --radius: var(--radius0);
+      --fs: calc(var(--fs0) * var(--k));
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:"Rubik","Segoe UI",Tahoma,Arial,Helvetica,sans-serif;
+      background:linear-gradient(135deg,#0f172a 0%,#111827 60%,#0b1226 100%); color:var(--txt);
+      padding:0;
+    }
+
+    .wrap{width:100vw; height:100vh; display:flex; flex-direction:column; gap:8px}
+
+    .toolbar{
+      padding:10px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .title{font-weight:700}
+
+    .zoom-controls button{
+      margin-inline-start:8px;
+      padding:4px 10px;
+      border-radius:8px;
+      border:1px solid #334155;
+      background:#0b1226;
+      color:var(--txt);
+      cursor:pointer;
+    }
+    .zoom-controls button:hover{filter:brightness(1.2)}
+
+    .stage{
+      flex:1; margin:0 18px 18px; border-radius:18px; overflow:auto;
+      background:rgba(11,18,38,.85); border:1px solid #1f2937; box-shadow:0 12px 32px rgba(0,0,0,.25);
+      position:relative; padding:30px;
+    }
+    .canvas{position:relative; isolation:isolate; padding:10px;}
+    .edges{position:absolute; inset:0; z-index:1; pointer-events:none}
+
+    .layer{position:relative; display:flex; justify-content:center; gap:var(--gap); margin-bottom:var(--v-gap); z-index:2}
+
+    .layer.grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(var(--w), var(--w)));
+      justify-content: space-evenly;
+      gap: var(--gap);
+    }
+
+    .node{
+      position:relative; z-index:3;
+      width:var(--w);
+      padding:var(--pad);
+      border-radius:var(--radius);
+      background:#0b1226; color:var(--txt);
+      text-align:center;
+      font-size:var(--fs);
+      line-height:1.45;
+      white-space:normal;
+      overflow-wrap:break-word; word-break:normal;
+      min-height:60px;
+      box-shadow:var(--shadow);
+    }
+
+    .lvl1{background:linear-gradient(135deg,#6d28d9,#8b5cf6); font-size:calc(var(--fs)*1.6)}
+    .lvl3{background:linear-gradient(135deg,#059669,#34d399); font-size:calc(var(--fs)*1.2)}
+    .lvl4{
+      background:linear-gradient(135deg,#0891b2,#22d3ee);
+      color:#042430;
+      font-size:calc(var(--fs)*1.05);
+      min-height:56px;
+    }
+
+    a.node{text-decoration:underline; display:block; cursor:pointer}
+    a.node:hover{ text-decoration:none; filter:brightness(1.1) }
+
+    .subcol{display:flex; flex-direction:column; align-items:center; gap:16px}
+    .subcol .node.lvl4{margin-top:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toolbar">
+      <div class="title">כרך ג - מערכת מד"ר לינארית - משפטי קיום ויחידות</div>
+      <div class="zoom-controls">
+        <button id="zout" title="הקטנה">A−</button>
+        <button id="zin"  title="הגדלה">A+</button>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="canvas" id="canvas">
+        <svg class="edges" id="edges" xmlns="http://www.w3.org/2000/svg"></svg>
+
+        <!-- שכבה 1 -->
+        <div class="layer" id="L1">
+          <div class="node lvl1" id="root">כרך ג – מערכת מד"ר לינארית – משפטי קיום ויחידות</div>
+        </div>
+
+        <!-- שכבה 2 – נושאים + פריטים -->
+        <div class="layer grid" id="L2">
+          <div class="subcol" id="col_init">
+            <div class="node lvl3" id="init">בעיית התחלה לינארית</div>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6753293" class="node lvl4" id="init_i1">יחידות הלימוד</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6937985&from=topNext" class="node lvl4" id="init_i2">מושגי יסוד</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6937996&from=topNext" class="node lvl4" id="init_i3">משפט הקיום והיחידות למערכת מד"ר לינארית מסדר ראשון</a>
+          </div>
+
+          <div class="subcol" id="col_vector">
+            <div class="node lvl3" id="vector">כתיב וקטורי</div>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6939103&from=topNext" class="node lvl4" id="vector_i1">כתיב וקטורי - יחידות הלימוד</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6939102&from=topNext" class="node lvl4" id="vector_i2">הקשר לאלגברה לינארית</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6939106&from=topNext" class="node lvl4" id="vector_i3">תלות לינארית של פונקציות</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6939107&from=topNext" class="node lvl4" id="vector_i4">הוורונסקיאן של מערכת לינארית</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6939111" class="node lvl4" id="vector_i5">תלות, אי-תלות והוורונסקיאן</a>
+          </div>
+
+          <div class="subcol" id="col_homo">
+            <div class="node lvl3" id="homo">מערכת הומוגנית</div>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6939104&from=nav" class="node lvl4" id="homo_i1">יחידות הלימוד</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6937997&from=topPrev" class="node lvl4" id="homo_i2">מרחב הפתרונות של מערכת הומוגנית</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6835091&from=topNext" class="node lvl4" id="homo_i3">מערכת בסיסית והפתרון הכללי</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6835170" class="node lvl4" id="homo_i4">ערכים עצמיים</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6836454&from=topNext" class="node lvl4" id="homo_i5">ערכים עצמיים מרוכבים</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6938000&from=topNext" class="node lvl4" id="homo_i6">ערכים עצמיים מריבוב גבוה</a>
+          </div>
+
+          <div class="subcol" id="col_inhomo">
+            <div class="node lvl3" id="inhomo">מערכת אי-הומוגנית</div>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6939105&from=topNext" class="node lvl4" id="inhomo_i1">יחידות הלימוד</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6938001&from=topNext" class="node lvl4" id="inhomo_i2">וריאציית הפרמטרים</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6938002&from=topNext" class="node lvl4" id="inhomo_i3">שיטת הקטנת הממד</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6938003&from=topNext" class="node lvl4" id="inhomo_i4">המרת משוואה מסדר גבוה למערכת משוואות מסדר ראשון</a>
+            <a href="https://opal.openu.ac.il/mod/combopage/view.php?id=6938004&from=topNext" class="node lvl4" id="inhomo_i5">דוגמאות</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const edges  = document.getElementById('edges');
+    const canvas = document.getElementById('canvas');
+
+    function collectPairs(){
+      const pairs = [
+        ['root','init'], ['root','vector'], ['root','homo'], ['root','inhomo']
+      ];
+      const map = {
+        'init':'init',
+        'vector':'vector',
+        'homo':'homo',
+        'inhomo':'inhomo'
+      };
+      Object.entries(map).forEach(([parent, base]) => {
+        for(let i=1;i<=10;i++) pairs.push([parent, `${base}_i${i}`]);
+      });
+      return pairs;
+    }
+
+    function linePath(from, to){
+      const r1 = from.getBoundingClientRect();
+      const r2 = to.getBoundingClientRect();
+      const rc = canvas.getBoundingClientRect();
+
+      const x1 = (r1.left + r1.width/2) - rc.left;
+      const y1 = (r1.bottom) - rc.top;
+      const x2 = (r2.left + r2.width/2) - rc.left;
+      const y2 = (r2.top) - rc.top;
+
+      const mid = (y1 + y2) / 2;
+      return `M ${x1},${y1} C ${x1},${mid} ${x2},${mid} ${x2},${y2}`;
+    }
+
+    function drawEdges(){
+      const w = Math.max(canvas.scrollWidth,  canvas.clientWidth);
+      const h = Math.max(canvas.scrollHeight, canvas.clientHeight);
+      edges.setAttribute('width', w);
+      edges.setAttribute('height', h);
+      edges.innerHTML = '';
+
+      collectPairs().forEach(([a,b]) => {
+        const from = document.getElementById(a);
+        const to   = document.getElementById(b);
+        if(!from || !to) return;
+        const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d', linePath(from,to));
+        path.setAttribute('fill','none');
+        path.setAttribute('stroke','var(--edge)');
+        path.setAttribute('stroke-width','2');
+        path.setAttribute('stroke-linecap','round');
+        path.setAttribute('stroke-linejoin','round');
+        path.setAttribute('vector-effect','non-scaling-stroke');
+        path.setAttribute('opacity','0.9');
+        edges.appendChild(path);
+      });
+    }
+
+    const scheduleDraw = (() => {
+      let raf = null;
+      return () => {
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => { raf = null; drawEdges(); });
+      };
+    })();
+
+    if (window.visualViewport) {
+      visualViewport.addEventListener('resize', scheduleDraw);
+      visualViewport.addEventListener('scroll',  scheduleDraw);
+    }
+
+    new ResizeObserver(scheduleDraw).observe(canvas);
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && ['+','-','0','='].includes(e.key)) {
+        setTimeout(scheduleDraw, 50);
+      }
+    });
+
+    let lastDPR = window.devicePixelRatio;
+    setInterval(() => {
+      if (window.devicePixelRatio !== lastDPR) {
+        lastDPR = window.devicePixelRatio;
+        scheduleDraw();
+      }
+    }, 250);
+
+    const rootStyle = document.documentElement.style;
+    const getK = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--k')) || 1;
+    const setK = (v) => { v = Math.max(1.0, Math.min(1.8, v)); rootStyle.setProperty('--k', v); scheduleDraw(); };
+
+    const zin  = document.getElementById('zin');
+    const zout = document.getElementById('zout');
+    if (zin)  zin.addEventListener('click',  () => setK(getK() + 0.1));
+    if (zout) zout.addEventListener('click', () => setK(getK() - 0.1));
+
+    window.addEventListener('load', () => scheduleDraw());
+    window.addEventListener('resize', scheduleDraw);
+  </script>
+
+<!-- page-load counter; GitHub publishes no analytics for Pages. Source: PRIMING_TOOLBOX/TOOLS/build_beacon.py -->
+<script src="https://shir-openu.github.io/beacon.js" defer></script>
+</body>
+</html>
